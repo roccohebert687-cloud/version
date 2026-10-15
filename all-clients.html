@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>All Clients Index - roccohebert687-cloud/version</title>
+  <style>
+    body{font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial;max-width:1000px;margin:24px auto;padding:0 16px;color:#111}
+    header{display:flex;align-items:center;justify-content:space-between}
+    h1{font-size:1.25rem;margin:0}
+    .client{border:1px solid #e6e6e6;padding:12px;margin:12px 0;border-radius:8px}
+    .versions{margin-top:8px}
+    .version{display:flex;justify-content:space-between;padding:6px 8px;border-radius:6px;margin:6px 0;background:#fbfbfb}
+    a{color:#0366d6;text-decoration:none}
+    a:hover{text-decoration:underline}
+    #preview{width:100%;height:600px;border:1px solid #ddd;margin-top:16px}
+    .controls{display:flex;gap:8px;align-items:center}
+    .notice{font-size:0.9rem;color:#555}
+    footer{margin-top:16px;font-size:0.85rem;color:#666}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Clients index (generated)</h1>
+    <div class="controls">
+      <div class="notice">Click a version to open it; use the preview below to view in-page.</div>
+    </div>
+  </header>
+
+  <p>This page lists HTML client files found in this repository and extracts a best-effort client name and version from each filename. Versions are shown (when detected) and links open the file in a new tab. If you want a different sort order (newest clients first, or versions newest→old), tell me and I will update this file.</p>
+
+  <div id="clients"></div>
+
+  <iframe id="preview" sandbox></iframe>
+
+  <footer>Generated for repo: roccohebert687-cloud/version • Files are links to the repository files.</footer>
+
+  <script>
+    // List of filenames discovered in the repo root (best-effort list taken from repository contents).
+    const files = [
+".gitattributes",
+"1.5.2.html",
+"Aero Client JS.html",
+"Alpha 1.0.1_01-JS.html",
+"Alpha 1.0.4-JS.html",
+"Beta-1.6.4.html",
+"Beta_1.7.3.html",
+"Classic 0.0.11a-JS.html",
+"Classic 0.0.11a-WASM.html",
+"Classic 0.0.12a_3-JS.html",
+"Classic 0.0.12a_3-WASM.html",
+"Classic 0.0.13a_3-JS.html",
+"Classic 0.0.13a_3-WASM.html",
+"Classic 0.0.14a_8-JS.html",
+"Classic 0.0.14a_8-WASM.html",
+"Classic 0.0.15a-JS.html",
+"Classic 0.0.15a-WASM.html",
+"Classic 0.0.16a_2-JS.html",
+"Classic 0.0.16a_2-WASM.html",
+"Classic 0.0.17a-JS.html",
+"Classic 0.0.17a-WASM.html",
+"Classic 0.0.18a_2-JS.html",
+"Classic 0.0.18a_2-WASM.html",
+"Classic 0.0.19a_6-JS.html",
+"Classic 0.0.19a_6-WASM.html",
+"Classic 0.0.20_2-JS.html",
+"Classic 0.0.20_2-WASM.html",
+"Classic 0.0.21a-JS.html",
+"Classic 0.0.21a-WASM.html",
+"Classic 0.0.22a_5-JS.html",
+"Classic 0.0.22a_5-WASM.html",
+"Classic 0.0.23a_01-JS.html",
+"Classic 0.0.23a_01-WASM.html",
+"Classic 0.24_3-JS.html",
+"Classic 0.24_3-WASM.html",
+"Classic 0.25_5-JS.html",
+"Classic 0.25_5-WASM.html",
+"Classic 0.30-JS.html",
+"EB Client Nextgen CU4.html",
+"Eaglercraft 1.13.2-WASM.html",
+"Eaglercraft 1.16.5 WASM.html",
+"Eaglercraft 1.21.11 WASM.html",
+"Eaglercraft 1.6.4.html",
+"Eaglercraft 1.7.10-Javascript.html",
+"Eaglercraft 1.8.8 .html",
+"Eaglercraft Alpha 1.0.6_03.html",
+"Eaglercraft Beta 1.4.html",
+"Eaglercraft Beta 1.5_01.html",
+"Eaglercraft Indev 20100219-JS.html",
+"Eaglercraft Indev 20100219-WASM.html",
+"Eaglercraft Mobile.html",
+"Eaglercraft Scratch.html",
+"Eaglercraft alpha 1.0.16_02-JS.html",
+"Eaglercraft alpha 1.0.16_02-WASM.html",
+"Eaglercraft beta 1.6-tb3-wasm.html",
+"Eaglercraft beta 1.6-tb3.html",
+"Eaglercraft beta 1.8.1.html",
+"Eaglercraft-1-21-11_wasm.html",
+"Eaglercraft-1.0-WASM-GC.html",
+"Eaglercraft-1.0.html",
+"Eaglercraft-1.11.2.html",
+"Eaglercraft-1.12.html",
+"Eaglercraft-1.13.2-JS.html",
+"Eaglercraft-1.15.2-JS.html",
+"Eaglercraft-1.15.2-WASM_GC.html",
+"Eaglercraft-1.5.2-WASM-GC.html",
+"Eaglercraft-1.5.2.html",
+"Eaglercraft-1.6.4-Forge-WASM.html",
+"Eaglercraft-1.6.4-Forge.html",
+"Eaglercraft-1.7-wasm.html",
+"Eaglercraft-4k-JS.html",
+"Eaglercraft-Beta-1.3-JS.html",
+"Eaglercraft-Beta-1.3-WASM.html",
+"Eaglercraft-Scratch.html",
+"EaglercraftX_1.8_WASM-GC.html",
+"EaglercraftZ.html",
+"Eaglercraft_1.1.html",
+"Eaglercraft_1.12.2-WASM-GC.html",
+"Eaglercraft_1.12_Javascript.html",
+"Eaglercraft_1.14.4_WASM-GC.html",
+"Eaglercraft_1.14.4_WASM-GC_U1.html",
+"Eaglercraft_1.2.3_JS.html",
+"Eaglercraft_1.2.3_WASM-GC.html",
+"Eaglercraft_1.2.5_JS.html",
+"Eaglercraft_1.2.5_wasm.html",
+"Eaglercraft_1.20.6_WASM-GC.html",
+"Eaglercraft_1.4.7-JS.html",
+"Eaglercraft_1.4.7-WASM.html",
+"Eaglercraft_1_0_0.html",
+"Eaglercraft_1_3_2.html",
+"Eaglercraft_Alpha_1.1.2_01.html",
+"Eaglercraft_Beta-1.2_02.html",
+"Eaglercraft_Beta_1.0.2.html",
+"Eaglercraft_Beta_1.1_02-JAVS.html",
+"Eaglercraft_Beta_1.4_01.html",
+"Eaglercraft_Beta_1.9_pre_5.html",
+"Eaglercraft_Beta_1.9_pre_5_WASM.html",
+"Eaglercraft_b1.1.html",
+"Eaglercraft_beta 1.8.1_WASM.html",
+"Eaglercraft_indev 20100223_JS.html",
+"Eaglercraft_indev 20100223_WASM.html",
+"Eaglercraft_indev_20100233-wasm.html",
+"Eaglercraft_indev_20100233.html",
+"Eaglet.html",
+"EagletWithNormalResources.html",
+"EaglyMC.html",
+"Eclipse Client.html",
+"Huzzium-Client.html",
+"Indev_20100214_JS.html",
+"Indev_20100214_WASM-GC.html",
+"Koneclient-1.8.8.html",
+"Mega Client-JS.html",
+"Minicraft.html",
+"Myven-Client-WASM.html",
+"N0VA CLIENT.html",
+"Novix_26.1.2.html",
+"PixelClient 1.8.8 JS.html",
+"Precision.html",
+"Prism-Client.html",
+"README.md",
+"Tuff_Client_WASM.html",
+"Water Client.html",
+"WurstX.html",
+"classic-0.30_WASM.html",
+"eagler-indev.html",
+"eaglercraft-1.16.5-wasm-gc.html",
+"eaglercraft-1.17-wasm_gc.html",
+"eaglercraft-26.1.2-WASM_Novix.html",
+"eaglercraft-26.2-wispcraft.html",
+"eaglercraft-26.2.html",
+"eaglercraft-alpha-1.2.6-WASM.html",
+"eaglercraft-alpha-1.2.6.html",
+"eaglercraft-beta-1.3.html",
+"eaglercraftx-194.html",
+"infdev-wasm-gc.html",
+"injector.html",
+"mc4k.html",
+"pre-release-160052.html",
+"rd-131655-JS.html",
+"rd-131655-WASM.html",
+"rd-132211-JS.html",
+"rd-132211-WASM.html",
+"rd-132328-JS.html",
+"rd-132328-WASM.html",
+"rd-160052-JS.html",
+"rd-161348-JS.html",
+"rd-161348-WASM.html",
+"wispcraft-Eaglercraft 1.8.8 .html",
+"wispcraft-Eaglercraft-1.12.html",
+"wispcraft-EaglercraftX_1.8_WASM-GC.html",
+"wispcraft-Eaglercraft_1.12.2-WASM-GC.html"
+    ];
+
+    // Helper: extract a base name and version from a filename
+    function parseFileName(name){
+      // strip suffix markers like -JS, -WASM, .html, extra spaces
+      const clean = name.replace(/\.html$/i,'').replace(/[-_]?(JS|WASM|WASM-GC|WASM_GC|Javascript|JAVS)$/i,'').trim();
+      // try to find version patterns like 1.12.2, 1.8.8, 0.0.14a_8, Beta 1.4, Alpha 1.0.4
+      const verRegex = /((?:Alpha|Beta|alpha|beta)?\s*\d+(?:[._-]\d+)*(?:[a-zA-Z0-9_\.-]*)?)/i;
+      // also try numeric dotted versions
+      const numVer = clean.match(/\d+(?:[._]\d+)+/);
+      let version = null;
+      if(numVer) version = numVer[0].replace(/_/g,'.');
+      // look for words like Alpha/Beta with numbers
+      const wordVer = clean.match(/(Alpha|Beta)\s*\d+(?:[._-]\d+)*/i);
+      if(!version && wordVer) version = wordVer[0];
+
+      // fallback: try the verRegex to capture things like 0.0.23a_01
+      if(!version){
+        const vr = clean.match(verRegex);
+        if(vr) version = vr[0];
+      }
+
+      // determine base name by removing the version part
+      let base = clean;
+      if(version){
+        // attempt to remove the first occurrence of version in the string
+        const idx = clean.toLowerCase().indexOf(version.toLowerCase());
+        if(idx>=0) base = (clean.slice(0,idx) + clean.slice(idx + version.length)).trim();
+      }
+      // clean punctuation / extra spaces
+      base = base.replace(/[_\-]+/g,' ').replace(/\s+/g,' ').trim();
+      if(base === '') base = name.replace(/\.html$/i,'');
+      return { original:name, base, version: version || 'unknown', url: './' + encodeURIComponent(name) };
+    }
+
+    const parsed = files.map(parseFileName);
+
+    // Group by base name
+    const groups = {};
+    parsed.forEach(p => {
+      const key = p.base;
+      groups[key] = groups[key] || [];
+      groups[key].push(p);
+    });
+
+    // Sort versions within each group: attempt numeric sort when possible (by splitting numbers), otherwise by string
+    function versionKey(v){
+      if(!v || v==='unknown') return [];
+      // extract numeric parts
+      const parts = v.replace(/[^0-9.]/g,'.').split('.').map(s=>parseInt(s||0));
+      return parts;
+    }
+
+    Object.keys(groups).forEach(k => {
+      groups[k].sort((a,b)=>{
+        const av = versionKey(a.version);
+        const bv = versionKey(b.version);
+        // compare arrays
+        for(let i=0;i<Math.max(av.length,bv.length);i++){
+          const na = av[i]||0; const nb = bv[i]||0;
+          if(na!==nb) return na-nb;
+        }
+        return a.version.localeCompare(b.version);
+      });
+    });
+
+    // Render: by default show groups sorted alphabetically. If you prefer newest clients first, we can change order.
+    const container = document.getElementById('clients');
+    Object.keys(groups).sort().forEach(clientName=>{
+      const box = document.createElement('div');
+      box.className = 'client';
+      const h = document.createElement('h2');
+      h.textContent = clientName;
+      box.appendChild(h);
+
+      const versions = document.createElement('div');
+      versions.className = 'versions';
+
+      groups[clientName].forEach(v=>{
+        const row = document.createElement('div');
+        row.className = 'version';
+        const left = document.createElement('div');
+        left.innerHTML = '<strong>' + (v.version || 'unknown') + '</strong>' + ' — ' + decodeURIComponent(v.original);
+        const right = document.createElement('div');
+        const link = document.createElement('a');
+        link.href = v.url;
+        link.target = '_blank';
+        link.textContent = 'Open';
+        link.onclick = (e)=>{ /* allow preview */ document.getElementById('preview').src = v.url; };
+        right.appendChild(link);
+        row.appendChild(left);
+        row.appendChild(right);
+        versions.appendChild(row);
+      });
+
+      box.appendChild(versions);
+      container.appendChild(box);
+    });
+  </script>
+</body>
+</html>
